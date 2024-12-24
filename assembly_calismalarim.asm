@@ -577,3 +577,231 @@
 ;ret
 ; cumle db 'kelime eleme'
 ; esayisi db 0 
+                 
+                 
+                 
+                 
+
+
+
+
+
+
+
+    ;org 100h
+; lea SI,metin
+; mov CX, sayac-offset metin
+; dongu: 
+; PUSH CX  
+;
+; MOV AL,[SI]
+; MOV BH,0
+; MOV CX,1 
+; INC SI  
+; int 10h  
+; 
+; MOV AH,03h  ; imlecpozisyonunu okuma
+; int 10h  
+;   
+; MOV AH,02h ; imlec pozisyonunu ayarlama
+; INC DL   ; yanyanayazacagi icin DL degerini arttirmakgerekiyorimleci saga kaydirarakyazdiriyoruz
+; int 10h  
+;          
+; POP CX
+; loop dongu
+; ret
+; metin db "ekranayazdirma"
+; sayac db 0  
+; 
+;
+; ret
+     
+     
+     
+     
+
+; org 100h
+; MOV AH,0Eh
+; MOV AL,'A'   ; ekrana A karakterinin yazilmasi
+; int 10h
+; ret  
+
+
+
+
+ 
+ 
+; org 100h
+; MOV AH, 13h
+; MOV CX, sayac-offset mesaj
+;
+; MOV AL,0
+; MOV BH,0      
+; MOV DH,0
+; MOV DL,0
+; MOV BP,offset mesaj
+; MOV BL,11110000b  ; 
+; int 10h
+; 
+; ret
+; mesaj db "yeni dizi" 
+;sayac db 0   
+                 
+                 
+                 
+                 
+                 
+
+;org 100h
+; MOV CX,5 
+; mov ah,02h  ; imlec pozisyonunu ayarlama
+; mov dh, 10h ;satir
+; mov dl, 5h  ;sutun
+; mov bh, 1 
+; int 10h 
+; 
+; don:
+; PUSH CX
+; MOV AH,00h  ; klavyeden deger okuma
+; int 16h ; burasi klavyeden bir degerin girilmesini bekler deger girildigi zaman bunu al ye atar
+;        
+; 
+; MOV AH,09h  ; imleckarakteryazma
+; MOV BH,0    ; sayfa numarasi     
+; MOV CX,3    ; karakteri3 kezyazsin
+; MOV BL, 00110000b  ; dusuk 4 bit(sagdaki) yazi rengini, yuksek 4 bit(soldaki) arka plan rengini
+; int 10h     ; karakter yazdirilir
+; 
+; MOV AH,03h  ; imlecpozisyonokuma
+; int 10h
+;      
+; MOV AH, 02h   ;imlecpozisyonayarlama
+; INC DH ; satir numarasini arttir ve bir alt satira gec
+; int 10h
+; 
+; POP CX
+; loop don
+;  
+;ret
+      
+      
+
+
+; org 100h
+; MOV CX,5 
+; mov ah,02h ; imlec pozisyonunuayarlama
+; mov dh, 11h ;satir
+; mov dl, 22h ;sutun
+; mov bh, 0 
+; int 10h  
+; 
+; don:
+; PUSH CX
+; MOV AH,00h
+; int 16h 
+;       
+;; klavyeden veri al
+; MOV AH,0Ah    ; imleckarakter yazma
+; MOV BH,0         
+; MOV CX,2      ; karakteri 2 kez yazsin
+; int 10h 
+; 
+; MOV AH,03h  ; imlecpozisyonokuma
+; int 10h 
+;      ; DL de sutundegeri var
+; MOV AH, 02h   ;imlec pozisyonayarlama
+; INC DL ; sutun degerini toplamda 2 arttir bir sonraki klavyeden alinan veri icin
+; INC DL
+; int 10h
+; 
+; POP CX
+; loop don
+;  
+;ret   
+
+
+
+
+org 100h
+
+mov ah, 02h
+mov dh, 10h
+mov dl, 5h
+mov bh, 0
+int 10h
+
+mov ah, 00h
+int 16h
+
+mov temp, al       
+mov ah, 09h
+mov bh, 0
+mov cx, 3
+mov bl, 00110000b
+int 10h
+
+mov ah, 03h
+int 10h
+
+mov cx, 4
+
+don:
+JCXZ bitir
+PUSH cx
+
+mov ah, 00h
+int 16h
+
+cmp temp,al
+je ayni
+mov temp, al
+mov ah, 03h
+int 10h
+
+mov ah, 02h
+mov dl, 5h
+inc dh
+int 10h
+
+mov ah, 09h
+mov bh, 0
+mov cx, 3
+mov bl, 00110000b
+int 10h
+
+jmp devam
+
+ayni:
+mov ah, 03h
+int 10h
+
+mov ah, 02h
+inc dl
+inc dl
+inc dl
+int 10h
+
+mov ah, 09h
+mov bh, 0
+mov cx, 3
+mov bl, 00110000b
+int 10h
+
+devam:
+pop cx 
+loop don
+
+bitir:
+
+
+ret
+temp db 0
+      
+     
+
+
+
+
+
+    
+                 
