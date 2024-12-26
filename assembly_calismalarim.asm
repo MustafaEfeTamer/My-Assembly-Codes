@@ -1080,7 +1080,89 @@
 ; 
 ;bitir: 
 ;ret
+     
+     
+    
 
+;org 100h
+;  mov ah, 02h
+;  mov dh, 5h
+;  mov dl, 5h
+;  int 10h
+;  
+;  mov cx, 7
+;   
+;   
+;  jmp dongu 
+;  
+;  tek:
+;  
+;  mov ah, 02h        
+;  inc dl
+;  int 10h
+;
+;  mov ah, 09h
+;  mov cx, 1
+;  mov al, sayi
+;  add al, '0'  
+;  mov bl, 11110000b
+;  int 10h 
+;  
+;  pop cx
+;  dec cx
+;  jcxz bitir            
+;  jmp dongu 
+;  
+;  dongu:
+;  JCXZ bitir
+;  push cx
+;  
+;  mov ah, 00h  
+;  int 16h
+;  
+;  
+;  mov ah, 0            
+;  sub al,'0'
+;  mov sayi, al   
+;  mov bl, 2    
+;  div bl
+;  
+;  cmp ah,1
+;  je tek
+;
+;
+;  mov ah, 02h        
+;  inc dh
+;  int 10h  
+;  
+;  mov ah, 09h
+;  mov cx, 1
+;  mov al, sayi
+;  add al, '0'  ; ekrana yazdiriken asci 0'i ekle
+;  mov bl, 11110000b
+;  int 10h
+;   
+;  pop cx
+;  loop dongu
+;            
+;            
+;            
+;sayi db 0
+;
+;bitir:
+;
+;ret
+
+
+
+
+
+    
+     
+     
+     
+     
+     
 
 
  
