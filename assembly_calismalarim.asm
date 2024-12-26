@@ -722,86 +722,366 @@
 
 
 
-org 100h
-
-mov ah, 02h
-mov dh, 10h
-mov dl, 5h
-mov bh, 0
-int 10h
-
-mov ah, 00h
-int 16h
-
-mov temp, al       
-mov ah, 09h
-mov bh, 0
-mov cx, 3
-mov bl, 00110000b
-int 10h
-
-mov ah, 03h
-int 10h
-
-mov cx, 4
-
-don:
-JCXZ bitir
-PUSH cx
-
-mov ah, 00h
-int 16h
-
-cmp temp,al
-je ayni
-mov temp, al
-mov ah, 03h
-int 10h
-
-mov ah, 02h
-mov dl, 5h
-inc dh
-int 10h
-
-mov ah, 09h
-mov bh, 0
-mov cx, 3
-mov bl, 00110000b
-int 10h
-
-jmp devam
-
-ayni:
-mov ah, 03h
-int 10h
-
-mov ah, 02h
-inc dl
-inc dl
-inc dl
-int 10h
-
-mov ah, 09h
-mov bh, 0
-mov cx, 3
-mov bl, 00110000b
-int 10h
-
-devam:
-pop cx 
-loop don
-
-bitir:
-
-
-ret
-temp db 0
+;org 100h
+;
+;mov ah, 02h
+;mov dh, 10h
+;mov dl, 5h
+;mov bh, 0
+;int 10h
+;
+;mov ah, 00h
+;int 16h
+;
+;mov temp, al       
+;mov ah, 09h
+;mov bh, 0
+;mov cx, 3
+;mov bl, 00110000b
+;int 10h
+;
+;mov ah, 03h
+;int 10h
+;
+;mov cx, 4
+;
+;don:
+;JCXZ bitir
+;PUSH cx
+;
+;mov ah, 00h
+;int 16h
+;
+;cmp temp,al
+;je ayni
+;mov temp, al
+;mov ah, 03h
+;int 10h
+;
+;mov ah, 02h
+;mov dl, 5h
+;inc dh
+;int 10h
+;
+;mov ah, 09h
+;mov bh, 0
+;mov cx, 3
+;mov bl, 00110000b
+;int 10h
+;
+;jmp devam
+;
+;ayni:
+;mov ah, 03h
+;int 10h
+;
+;mov ah, 02h
+;inc dl
+;inc dl
+;inc dl
+;int 10h
+;
+;mov ah, 09h
+;mov bh, 0
+;mov cx, 3
+;mov bl, 00110000b
+;int 10h
+;
+;devam:
+;pop cx 
+;loop don
+;
+;bitir:
+;
+;
+;ret
+;temp db 0
       
      
 
 
+       
+       
+       
+; org 100h
+; MOV AL, 13h
+; MOV AH, 0
+; int 10h ; video grafik modu ayarlama
+; 
+; MOV AH,0Ch ; tek piksel renk degistirme
+; MOV AL, 1110b 
+; MOV CX, 15h
+; MOV DX, 43h   
+; int 10h    
+; 
+; ret   
 
 
+
+;org 100h
+;  mov si,0 
+;  mov cx,14
+;  
+;  mov ah,0
+;  int 10h
+;  dongu: 
+;  push cx
+;
+;  
+;  mov ah,0ah
+;  mov al,[metin+si]
+;  mov cx,1 
+;  mov bh,0
+;  inc si
+;  int 10h 
+;  
+;  mov ah,03h
+;  int 10h
+;  
+;  mov ah,02h
+;  inc dl
+;  int 10h 
+;  
+;  pop cx
+;  loop dongu
+;  
+;
+;
+;ret
+;
+;metin db "ekranayazdirma"
+       
 
     
+
+;org 100h
+; MOV AH, 13h
+; MOV CX, sayac-offset mesaj
+; MOV AL,0
+; MOV BH,0
+; MOV DH,0
+; MOV DL,0
+; MOV BP,offset mesaj
+; MOV BL,00110000b  ; 
+; int 10h
+; ret
+; mesaj db "ekranayazdirma" 
+;sayac db 0 
+
+
+
+; org 100h
+; MOV DX, offset msg
+; MOV AH,09h
+; int 21h  ; kesmenumarasi
+; ret
+; msg db 'ekranayazdirma$'
+   
+
+     
+        
+    
+    
+;org 100h
+;
+; mov cx,5
+; mov ah,02h      ; imlecin yerini ayarlama
+; mov dh, 10h
+; mov dl, 5h
+; mov bh,0
+; int 10h
+;  
+; dongu:
+; push cx
+; 
+; mov ah,00h
+; int 16h
+; 
+; mov ah, 09h     ; ekrana stilli yazdirma
+; mov bh, 0
+; mov bl, 00110000b
+; mov cx, 3
+; int 10h
+; 
+; mov ah, 02h     ; imlecin yerini ayarlama
+; mov dl, 5h 
+; mov bh, 0
+; inc dh
+; int 10h
+; 
+; 
+; pop cx
+; 
+; loop dongu 
+; 
+;ret  
+
+
+ 
+  
+  
+;org 100h
+;
+; mov cx,5     ; dongunun kac kere donecegi
+; mov ah,02h   ; imlecin yerini ayarlama
+; mov dh, 10h
+; mov dl, 5h
+; mov bh,0
+; int 10h
+;  
+; dongu:
+; push cx
+; 
+; mov ah,00h
+; int 16h
+; 
+; mov ah, 09h    ; ekrana stilli yazdirma
+; mov bh, 0
+; mov bl, 00110000b
+; mov cx, 2
+; int 10h
+; 
+; mov ah, 02h   ; imlecin yerini ayarlama
+; mov dh, 10h 
+; mov bh, 0
+; inc dl
+; inc dl
+; int 10h
+;  
+; pop cx
+; loop dongu 
+; 
+;ret
+
+
+
+
+;org 100h 
+;  mov si, 0
+;  mov cx, 5
+;  
+;  mov ah, 02h  ; imlecin yerini ayarlama
+;  mov dh, 10h
+;  mov dl, 5h
+;  int 10h
+;  
+;  dongu:
+;  push cx  
+;  mov ah,00h ; klavyeden yeni veri alma
+;  int 16h  
+;  
+;  cmp al,[alinan+si] ; alinan dizisi ile al deki degeri kiyasla
+;  je ayni
+;  jmp aynidegil
+;  
+;  yazdir: ; 3 kere ayni karakteri yazdirma
+;  JCXZ bitir 
+;  mov ah, 09h  ; stilli ekrana yazdirma
+;  mov bl, 00110000b
+;  mov cx, 3
+;  int 10h
+;   
+;  inc si
+;  
+;  mov [alinan+si], al 
+;  pop cx 
+;  loop dongu  
+;  
+;  
+;    
+;  ayni:
+;  mov ah,02h   ; imlecin yerini ayarla. Imlecin yerini ayarlamadan yazdirma yapmiyoruz 
+;  inc dl
+;  inc dl
+;  inc dl
+;  int 10h
+;  jmp yazdir  
+;  
+;  
+;  aynidegil:
+;  mov ah, 02h  ; imlecin yerini ayarla. Imlecin yerini ayarlamadan yazdirma yapmiyoruz
+;  inc dh
+;  mov dl, 5h
+;  int 10h
+;  jmp yazdir
+;  
+;bitir: 
+; 
+;ret
+;
+;alinan db ?  
+
+
+
+
+
+;org 100h
+; 
+; mov ah, 02h ; imlecin yerini ayarlama
+; mov dh, 10h
+; mov dl, 5h
+; int 10h 
+; mov cx, 3
+; 
+; jmp dongu 
+; 
+; beyazArkaPlan:
+; push cx
+; mov ah, 09h
+; mov cx, 1
+; add al, '0'  ; ekrana yazdiriken asci 0'i ekle
+; mov bl, 11110000b
+; int 10h
+; 
+; 
+; mov ah, 02h
+; inc dh       ; ekranda imleci alt capraza gotur 
+; inc dl
+; int 10h
+;  
+; pop cx 
+; dec cx
+; JCXZ bitir
+; jmp dongu
+; 
+; 
+; dongu:
+; JCXZ bitir
+; push cx
+; 
+; mov ah, 00h  ; klavyeden veri al
+; int 16h
+; 
+; mov ah, 0    ; ah yi 0' la         
+; sub al,'0'   ; al den asci olarak 0'i cikar
+; mov bl, 3    ; al yi 3'e bol
+; div bl
+; 
+; pop cx
+; cmp cx, 3    ; ilki mi diye kiyasla oyleyse beyaz arka plan
+; je beyazArkaPlan
+; push cx
+; 
+; mov ah, 09h
+; mov cx, 1
+; add al, '0'  ; ekrana yazdiriken asci 0'i ekle
+; mov bl, 11100000b
+; int 10h  
+; 
+; 
+; mov ah, 02h
+; inc dh       ; ekranda imleci alt capraza gotur
+; inc dl
+; int 10h 
+;
+; pop cx
+; loop dongu 
+;
+; 
+;bitir: 
+;ret
+
+
+
+ 
                  
